@@ -143,7 +143,7 @@ public class UsuarioDao {
         //definimos variables que vamos a usar
         Connection conn = null;
         PreparedStatement preparedStatement = null;
-        ///ResultSet rs =null;
+        ResultSet rs =null;
 
         Usuario usuarioBuscado = null;
 
@@ -153,7 +153,7 @@ public class UsuarioDao {
 
             preparedStatement.setInt(1, usuario.getIdUsuario());
             System.out.println(preparedStatement);
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
             while(rs.next()){
                 int id = rs.getInt("id_usuario");
                 String usuario1 = rs.getString("usuario");
@@ -168,7 +168,8 @@ public class UsuarioDao {
         }
         finally {
             try{
-
+                Conexion.close(preparedStatement);
+                Conexion.close(rs);
                 close(conn);
             }catch (SQLException ex){
                 ex.printStackTrace();
